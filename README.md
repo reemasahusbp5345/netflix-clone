@@ -5,7 +5,9 @@
  - Header
  - Login/SignupForm
  - Form Validation
- - useRef
+ - useRef Hook
+ - Firebase Setup
+ - Deploying Application to production(Firebase)
 
  # Features
  - Homepage
