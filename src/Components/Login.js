@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { BANNER_URL } from "../Utils/constatnts";
+import { AVATAR_URL, BANNER_URL } from "../Utils/constatnts";
 import { validate } from "../Utils/validate";
 import {
   createUserWithEmailAndPassword,
@@ -9,16 +9,10 @@ import {
 } from "firebase/auth";
 import { auth } from "../Utils/firebase";
 
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addUser } from "../Redux/userSlice";
-
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
@@ -42,12 +36,9 @@ const Login = () => {
           // Signed up
           updateProfile(auth.currentUser, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/68858686?v=4",
+            photoURL: AVATAR_URL
           })
-            .then(() => {
-              // Profile updated!
-              LoginUserToBrowse();
-            })
+            .then(() => {})
             .catch((error) => {
               setErrorMessage(error?.errorMessage);
             });
@@ -64,28 +55,14 @@ const Login = () => {
         email.current.value,
         password.current.value
       )
-        .then((userCredential) => {
-          // Signed in
-          LoginUserToBrowse();
-        })
+        .then((userCredential) => {})
         .catch((error) => {
           const errorMessage = error.message;
           setErrorMessage(errorMessage);
         });
     }
   };
-  const LoginUserToBrowse = () => {
-    const { email, displayName, uid, photoURL } = auth?.currentUser;
-    dispatch(
-      addUser({
-        uid: uid,
-        email: email,
-        displayName: displayName,
-        photoURL: photoURL,
-      })
-    );
-    navigate("/browse");
-  };
+
   return (
     <div>
       <Header />

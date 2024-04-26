@@ -9,7 +9,9 @@
  - Firebase Setup
  - Deploying Application to production(Firebase)
  - Implement signup/signin user in firebase
- - create redux store with userSlice
+ - create redux store for signIn userdetail
+ - After signup/signIn navigate to browse page
+ - Signout 
 
  # Features
  - Homepage
