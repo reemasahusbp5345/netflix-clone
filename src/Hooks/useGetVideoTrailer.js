@@ -13,7 +13,7 @@ const useGetVideoTrailer = (movieId) => {
       );
 
       const json = await moviesData.json();
-      const trailer=json?.results?.find(movie=>movie?.type?.toLowerCase()=="trailer");
+      const trailer=json?.results?.find(movie=>movie?.type?.toLowerCase()==="trailer");
       dispatch(addVideoTrailer(trailer));
     } catch (error) {}
   };

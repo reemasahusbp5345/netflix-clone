@@ -57,7 +57,7 @@ const Header = () => {
               />
             </div>
             <button
-              className="font-semibold text-base text-white cursor-pointer bg-red-600 rounded-3xl px-1 w-28 h-10"
+              className="font-semibold text-base text-white cursor-pointer bg-red-600 rounded-lg px-1 w-28 h-10"
               onClick={handleSignOut}
             >
               Sign Out
