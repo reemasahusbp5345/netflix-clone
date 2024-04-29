@@ -7,9 +7,13 @@ import { addUser, removeUser } from "../Redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { toggleGptSearch } from "../Redux/gptSlice";
+import { changeLanguage } from "../Redux/langSlice";
+import { langSelector } from "../Utils/constatnts";
 
 const Header = () => {
   const user = useSelector((store) => store?.user);
+  const lang=useSelector(store=>store?.lang?.lang);
+  const showGptSearch=useSelector(store=>store?.gpt?.showGptSearch);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSignOut = () => {
@@ -21,6 +25,9 @@ const Header = () => {
   };
 const handleGptSearch=()=>{
   dispatch(toggleGptSearch());
+}
+const handleLanguageChange=(e)=>{
+  dispatch(changeLanguage(e.target.value))
 }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -59,11 +66,14 @@ const handleGptSearch=()=>{
                 alt="avatar"
               />
             </div>
+           {showGptSearch && <select className="rounded-lg bg-black text-white p-2" onChange={handleLanguageChange}>
+              {langSelector?.map(elem=><option key={elem?.identifier} value={elem?.identifier}>{elem?.language}</option>)}
+            </select>}
             <button
               className="font-semibold text-base text-white cursor-pointer bg-purple-600 rounded-lg px-1 mx-2 w-28 h-10"
               onClick={handleGptSearch}
             >
-              GPT Search
+              {showGptSearch?"Homepage":"GPT Search"}
             </button>
             <button
               className="font-semibold text-base text-white cursor-pointer bg-red-600 rounded-lg px-1 w-28 h-10"
